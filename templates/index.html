@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Tax Calculator</title>
+</head>
+<body>
+    <h2>Property Tax Calculator</h2>
+    <form method="POST">
+        <label>Enter Super Built-up Area (sq. ft):</label>
+        <input type="number" name="area" step="0.01" required>
+        <button type="submit">Calculate Tax</button>
+    </form>
+
+    {% if tax is not none %}
+        <h3>Total Property Tax: {{ tax }}</h3>
+    {% endif %}
+</body>
+</html>
