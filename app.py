@@ -12,18 +12,30 @@ def calculate_property_tax(super_built_up_area):
     G = 100  # Street Light Maintenance (Fixed)
     
     total_tax = A + B + C + D + E + F + G
-    return round(total_tax, 2)
+    
+    breakdown = {
+        "Building Tax (A)": round(A, 2),
+        "Land Tax (B)": round(B, 2),
+        "Beggar Cess (C = (A+B) × 3%)": round(C, 2),
+        "Library Cess (D = (A+B) × 6%)": round(D, 2),
+        "Health Cess (E = (A+B) × 15%)": round(E, 2),
+        "Water Supply (F)": F,
+        "Street Light Maintenance (G)": G,
+        "Total Property Tax": round(total_tax, 2)
+    }
+    
+    return breakdown
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    tax = None
+    breakdown = None
     if request.method == "POST":
         try:
             area = float(request.form["area"])
-            tax = calculate_property_tax(area)
+            breakdown = calculate_property_tax(area)
         except ValueError:
-            tax = "Invalid input! Please enter a numeric value."
-    return render_template("index.html", tax=tax)
+            breakdown = {"Error": "Invalid input! Please enter a numeric value."}
+    return render_template("index.html", breakdown=breakdown)
 
 if __name__ == "__main__":
     app.run(debug=True)

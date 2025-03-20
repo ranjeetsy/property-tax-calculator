@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Property Tax Calculator</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        table { width: 50%; margin: auto; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
 </head>
 <body>
     <h2>Property Tax Calculator</h2>
@@ -13,8 +19,20 @@
         <button type="submit">Calculate Tax</button>
     </form>
 
-    {% if tax is not none %}
-        <h3>Total Property Tax: {{ tax }}</h3>
+    {% if breakdown %}
+        <h3>Tax Breakdown</h3>
+        <table>
+            <tr>
+                <th>Component</th>
+                <th>Amount (₹)</th>
+            </tr>
+            {% for key, value in breakdown.items() %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+            {% endfor %}
+        </table>
     {% endif %}
 </body>
 </html>
